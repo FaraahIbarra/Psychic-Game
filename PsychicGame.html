@@ -1,28 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Psychic Game</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
+    <title>The Psychic Game</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
+
 <body>
-  <div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1 class="display-4">The Psychic Game</h1>
-    <p class="lead">Guess what letter I'm thinking of...</p>
-  </div>
-  
-</div>
-    
-    
-    
-    
-    
-    
-    
-    
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">The Psychic Game</h1>
+          <p class="lead">Guess what letter I'm thinking of...</p>
+        </div>
+      </div>
+
+    <div id="game">
+        <p>Wins: </p>
+        <p>Losses: </p>
+        <p>Guesses Left: </p>
+        <p>Your Guesses Made: </p>
+    </div>
+
+    <script type="text/javascript">
+        var wins = 0;
+        var losses = 0;
+        var guessesLeft = 9;
+        var guessesMade = []; 
+        var computerChoices = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']; 
+
+        document.onkeyup = function(event) {
+        var userGuess = String.fromCharCode(event.keyCode).toLowerCase(); 
+        var computerGuess = computerChoices[Math.floor(Math.random()*computerChoices.length)]; 
+
+        guessesMade.push(userGuess); 
+
+        if (userGuess == computerGuess) {
+            wins++;
+            guessesLeft = 9; 
+            guessesMade.length = 0; 
+        }
+
+        else if (guessesLeft == 0){
+            losses++;
+            guessesLeft = 9;
+            guessesMade.length = 0;
+        }
+
+        else if (userGuess !== computerGuess){
+            guessesLeft--;
+        }
+
+        var html = 
+        "<p> Wins: " + 
+        wins + 
+        "</p>" +
+        "<p> Losses: " + 
+        losses + 
+        "</p>" +
+        "<p>Guesses Left: " + 
+        guessesLeft + 
+        "</p>" +
+        "<p>Your Guesses Made: " +
+        guessesMade +
+        "</p>"
+        ;
+
+        document.querySelector('#game').innerHTML = html;
+      }
+</script>
 </body>
 </html>
+
